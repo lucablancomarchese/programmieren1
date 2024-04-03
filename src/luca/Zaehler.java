@@ -19,10 +19,12 @@ public class Zaehler {
 				summe = summe + input; 
 				System.out.println("Gerade, Zahl wurde addiert!");
 				System.out.println("Aktueller Stand: " + summe);
+				inputs++;
 			} else {
 				System.out.println("Zahl ungerade.");
+				inputs++;
 			}
-			inputs++;
+			
 		}
 		System.out.println("Programm beendet!");
 		System.out.println("Eingaben: " + inputs);
