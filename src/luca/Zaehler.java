@@ -15,7 +15,7 @@ public class Zaehler {
 			System.out.println("Geben Sie eine Zahl ein: ");
 			input = in.nextInt();
 			
-			if (input % 2 == 0) {	//Überprüfung ob Rest 0 ist beim Teilen durch 2
+			if (input % 2 == 0 && input > 0) {	//Überprüfung ob Rest 0 ist beim Teilen durch 2
 				summe = summe + input; 
 				System.out.println("Gerade, Zahl wurde addiert!");
 				System.out.println("Aktueller Stand: " + summe);
