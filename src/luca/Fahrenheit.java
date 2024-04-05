@@ -19,7 +19,7 @@ public class Fahrenheit {
 				// Berechnungsschleife
 				do {
 					// Anleitung
-					System.out.println("Programm endet durch Eingabe von 0");
+					System.out.println("Programm endet durch Eingabe von 1");
 					System.out.println("Eingabe der Fahrenheit Temperatur:");
 					
 					// Eingabe, Double-Wert einlesen
