@@ -6,8 +6,8 @@ public class Zaehler {
 	public static void main(String[] args) {
 		
 		int input = 0;
-		int summe = 0;
 		int inputs = 0;
+		int sum = 0;
 		
 		Scanner in = new Scanner(System.in);
 		
@@ -15,12 +15,12 @@ public class Zaehler {
 			System.out.println("Geben Sie eine Zahl ein: ");
 			input = in.nextInt();
 			
-			if (input % 2 == 0 && input > 0) {	//Überprüfung ob Rest 0 ist beim Teilen durch 2
-				summe = summe + input; 
+			if (input % 2 == 0 && input >= 0) {	//Überprüfung ob Rest 0 ist beim Teilen durch 2
+				sum = sum + input; 
 				System.out.println("Gerade, Zahl wurde addiert!");
-				System.out.println("Aktueller Stand: " + summe);
+				System.out.println("Aktueller Stand: " + sum);
 				inputs++;
-			} else {
+			} else if(input >= 0){
 				System.out.println("Zahl ungerade.");
 				inputs++;
 			}
@@ -28,7 +28,7 @@ public class Zaehler {
 		}
 		System.out.println("Programm beendet!");
 		System.out.println("Eingaben: " + inputs);
-		System.out.println("Gesammtsumme lautet: " + summe);
+		System.out.println("Gesammtsumme lautet: " + sum);
 
 	}
 

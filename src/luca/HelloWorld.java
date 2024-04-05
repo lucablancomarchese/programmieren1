@@ -1,11 +1,36 @@
 package luca;
 
+import java.util.Scanner;
+
 public class HelloWorld {
 
 	public static void main(String[] args) {
 		
 		
-		System.out.println("Hello World!!!!!");
+		int input;
+		int inputs = 0;
+		int sum = 0;
+		
+		Scanner in = new Scanner(System.in);
+		
+		do {
+			System.out.println("Geben Sie eine Zahl ein: ");
+			input = in.nextInt();
+			
+			if(input >= 0) {
+				inputs++;
+				if(input % 2 == 0) {
+					sum = sum + input;
+					System.out.println("Aktueller Stand: " + sum);
+					
+				}
+			}
+			
+		} while( input >= 0);
+		
+		System.out.println("Programm beendet!");
+		System.out.println("Eingaben: " + inputs);
+		System.out.println("Gesammtsumme lautet: " + sum);
 
 	}
 
