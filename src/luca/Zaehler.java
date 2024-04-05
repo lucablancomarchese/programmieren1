@@ -18,6 +18,7 @@ public class Zaehler {
 		
 		do {
 			System.out.println("Geben Sie eine Zahl ein: ");
+			System.out.println("Das Program endet durch Eingabe einer negativen Zahl.");
 			input = in.nextInt();
 			
 			if(input >= 0) {
