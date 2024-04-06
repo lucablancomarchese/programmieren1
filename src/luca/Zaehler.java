@@ -24,7 +24,7 @@ public class Zaehler {
 			if(input >= 0) {
 				inputs++;
 				if(input % 2 == 0) {
-					sum = sum + input;
+					sum += input;
 					System.out.println("Aktueller Stand: " + sum);
 					
 				}
