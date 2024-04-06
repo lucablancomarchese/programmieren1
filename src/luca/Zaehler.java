@@ -33,6 +33,7 @@ public class Zaehler {
 		} while( input >= 0);
 		
 		System.out.println("Programm beendet!");
+		System.out.println("Programm beendet!");
 		System.out.println("Eingaben: " + inputs);
 		System.out.println("Gesammtsumme lautet: " + sum);
 
