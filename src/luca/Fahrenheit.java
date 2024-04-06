@@ -35,7 +35,6 @@ public class Fahrenheit {
 				} while (Math.abs(f - 1) > epsilon);
 				
 				System.out.println("... und tschüss");
-				System.out.println("... und chao");
 				in.close();
 	}
 
