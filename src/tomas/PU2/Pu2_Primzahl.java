@@ -1,4 +1,4 @@
-package tomas;
+package tomas.PU2;
 
 import java.util.Scanner;
 
