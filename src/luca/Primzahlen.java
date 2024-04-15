@@ -27,7 +27,7 @@ public class Primzahlen {
 			}
 		}
 		
-		System.out.println("Programm beendet!");
+		System.out.println("Programm beendet!!");
 	}
 
 }
