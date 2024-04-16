@@ -28,6 +28,7 @@ public class Primzahlen {
 		}
 		
 		System.out.println("Programm beendet!!");
+		in.close();
 	}
 
 }
