@@ -28,7 +28,7 @@ public class pu2_alphabet {
 				// Check for lowercase letters.
 				if(c >= 'a' && c <= 'z') { 
 					
-					c = (char) (c + 1); 
+					c = (char) (c - 1); 
 					
 				// Wrap around for lowercase 'z'.
 				} else if (c == 'z') { 
