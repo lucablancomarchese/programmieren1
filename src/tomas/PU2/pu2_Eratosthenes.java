@@ -13,7 +13,13 @@ public class pu2_Eratosthenes {
 		input = in.nextInt();
 		
 		for(int i = 1; i <= input; i++ ) {
-			System.out.println(i);
+			int myArray = i;
+			
+			if(i < (i/2)) {
+				if((i/2) % 2 == 0) {
+					
+				}
+			}
 		}
 		
 		

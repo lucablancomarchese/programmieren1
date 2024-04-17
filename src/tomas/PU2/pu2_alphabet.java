@@ -45,9 +45,11 @@ public class pu2_alphabet {
 					
 					c = 'A';
 				}
-				// Concatenate 'c' (Broken down input string) characters into one String.
-				processedString += c;
-			}			
+			} else {
+				c = ' ';
+			}
+			// Concatenate 'c' (Broken down input string) characters into one String.
+			processedString += c;
 		}
 		
 		System.out.println("Input: " + input);
