@@ -37,8 +37,7 @@ public class Pu2_Primzahl {
 					System.out.println(i + " ist eine Primzahl");
 				}
 			}
-				
-				
+			in.close();	
 		}
 	}
 		
