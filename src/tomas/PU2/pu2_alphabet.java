@@ -26,29 +26,34 @@ public class pu2_alphabet {
 			if(Character.isLetter(c)) {
 				
 				// Check for lowercase letters.
+				
 				if(c >= 'a' && c <= 'z') { 
-					
 					c = (char) (c + 1); 
 					
-				// Wrap around for lowercase 'z'.
-				} else if (c == 'z') { 
+				// Wrap around for lowercase 'z' (from z -> a).
 					
+				} else if (c == 'z') { 
 					c = 'a';
 					
 				// Check for uppercase letters.	
-				} else if (c >= 'A' || c < 'Z') { 
 					
+				} else if (c >= 'A' || c < 'Z') { 
 					c = (char) (c + 1);
 					
 				// Wrap around (z -> a) for uppercase 'Z'.
-				} else if (c == 'Z') { 
 					
+				} else if (c == 'Z') { 
 					c = 'A';
 				}
+				
+			// When input isn't a character it adds a space.
+				
 			} else {
 				c = ' ';
 			}
+			
 			// Concatenate 'c' (Broken down input string) characters into one String.
+			
 			processedString += c;
 		}
 		
