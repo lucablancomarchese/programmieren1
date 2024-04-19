@@ -10,7 +10,7 @@ public class pu2_romano {
 		
 		int input = in.nextInt();
 		char letter;
-		String processed = String.valueOf(letter);
+		//String processed = String.valueOf(letter);
 		String output = " ";
 		
 		System.out.println("Please enter your desired number: ");
@@ -32,7 +32,7 @@ public class pu2_romano {
 			} else if (input == 1000) {
 				letter = 'M';
 			}
-			output += processed;
+			//output += processed;
 			System.out.println("Your converted number is: " +  output);
 		}
 	}
