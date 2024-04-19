@@ -34,8 +34,7 @@ public class pu2_Eratosthenes {
 				System.out.println(i + " ");
 			}
 		}
-		
-				
+		in.close();	
 	}
 }
 

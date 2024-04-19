@@ -25,22 +25,22 @@ public class pu2_alphabet {
 			
 			if(Character.isLetter(c)) {
 				
-				// Check for lowercase letters.
+				// Check for lower case letters.
 				
 				if(c >= 'a' && c <= 'z') { 
 					c = (char) (c + 1); 
 					
-				// Wrap around for lowercase 'z' (from z -> a).
+				// Wrap around for lower case 'z' (from z -> a).
 					
 				} else if (c == 'z') { 
 					c = 'a';
 					
-				// Check for uppercase letters.	
+				// Check for upper case letters.	
 					
 				} else if (c >= 'A' || c < 'Z') { 
 					c = (char) (c + 1);
 					
-				// Wrap around (z -> a) for uppercase 'Z'.
+				// Wrap around (z -> a) for upper case 'Z'.
 					
 				} else if (c == 'Z') { 
 					c = 'A';
