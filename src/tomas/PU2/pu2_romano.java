@@ -9,31 +9,22 @@ public class pu2_romano {
 		Scanner in = new Scanner (System.in);
 		
 		int input = in.nextInt();
-		char letter;
-		String processed = String.valueOf(letter);
-		String output = " ";
 		
-		System.out.println("Please enter your desired number: ");
+		// Join together 1-10, 100-1000,etc. Reduce it to 3 arrays.
 		
-		
-		for(int i = 0; i <= input; i++) {
-			if (input == 1) {
-				letter = 'I';
-			} else if (input == 5) {
-				letter = 'V';
-			} else if (input == 10) {
-				letter = 'X';
-			} else if (input == 50) {
-				letter = 'L';
-			} else if (input == 100) {
-				letter = 'C';
-			} else if (input == 500) {
-				letter = 'D';
-			} else if (input == 1000) {
-				letter = 'M';
-			}
-			output += processed;
-			System.out.println("Your converted number is: " +  output);
+		String p[] = {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI"};
+		String l[] = {"", "XX", "XXX", "XL", "L", "LX", "LXX", "LXX", "LXXX", "XC", "C", "CC", "CCC", "CD"};
+		String m[] = {"", "D", "DC", "DCC", "DCCC", "CM", "M"};
+
+		for(int i = 1; i <= input; i++) {
+			System.out.println(i);
 		}
+		
+		
+		
+		/** 
+		 * Store each combination in string and if number pair combination with index of string
+		 */
+		
 	}
 }
