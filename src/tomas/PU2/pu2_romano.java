@@ -6,25 +6,45 @@ public class pu2_romano {
 	
 	public static void main(String[] args) {
 
+		int i = 0;
+		
 		Scanner in = new Scanner (System.in);
 		
+		
+		
+		String[] roman = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+		int[] arabic = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+		
+		String output = " ";
+		
+		System.out.println("Enter your desired number: ");
 		int input = in.nextInt();
 		
-		// Join together 1-10, 100-1000,etc. Reduce it to 3 arrays.
 		
-		String p[] = {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI"};
-		String l[] = {"", "XX", "XXX", "XL", "L", "LX", "LXX", "LXX", "LXXX", "XC", "C", "CC", "CCC", "CD"};
-		String m[] = {"", "D", "DC", "DCC", "DCCC", "CM", "M"};
-
-		for(int i = 1; i <= input; i++) {
-			System.out.println(i);
+		if(input > 0 && input < 4000) {
+			
+			while(input > 0) {
+		
+				// The loop works it's way from the biggest to smallest number (1250 -> 1000 + 200 + 50).
+				
+				// The biggest number is added to the output as a Roman numeral and subtracted from the input (1250 -> 250 || output: M).
+				
+				// The loop repeats itself until all numbers are converted and the input is 0.
+				while (input >= arabic[i]) {
+					
+					output += roman[i];
+					input -= arabic[i];
+				}
+				i++;
+			}
+		} else {
+			System.out.println("Error");
 		}
+
 		
-		
-		
-		/** 
-		 * Store each combination in string and if number pair combination with index of string
-		 */
-		
+		// Prevents the printing of: "Your conversion is: ", when there is an error.	
+		if(output.length() > 1) {
+			System.out.println("Your conversion is: " + output);			
+		}
 	}
 }

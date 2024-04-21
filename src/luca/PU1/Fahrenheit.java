@@ -1,4 +1,4 @@
-package luca;
+package luca.PU1;
 
 import java.util.Scanner;
 
