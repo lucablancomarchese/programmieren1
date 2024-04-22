@@ -45,12 +45,7 @@ public class pu2_alphabet {
 				} else if (c == 'Z') { 
 					c = 'A';
 				}
-				
-			// When input isn't a character it adds a space.
-				
-			} else {
-				c = ' ';
-			}
+			} 
 			
 			// Concatenate 'c' (Broken down input string) characters into one String.
 			
