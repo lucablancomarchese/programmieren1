@@ -25,11 +25,14 @@ public class pu2_romano {
 			
 			while(input > 0) {
 		
-				// The loop works it's way from the biggest to smallest number (1250 -> 1000 + 200 + 50).
+				/**
+				 * The loop works it's way from the biggest to smallest number (1250 -> 1000 + 200 + 50).
 				
-				// The biggest number is added to the output as a Roman numeral and subtracted from the input (1250 -> 250 || output: M).
+				 The biggest number is added to the output as a Roman numeral and subtracted from the input (1250 -> 250 || output: M).
 				
-				// The loop repeats itself until all numbers are converted and the input is 0.
+				 The loop repeats itself until all numbers are converted and the input is 0.  
+				 */
+				
 				while (input >= arabic[i]) {
 					
 					output += roman[i];
