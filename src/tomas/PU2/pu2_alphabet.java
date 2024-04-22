@@ -20,14 +20,14 @@ public class pu2_alphabet {
 			
 			char c = inputString.charAt(i);
 			
-		// Checks if elements of the string are letters, if so then it replaces every letter with the next one in the alphabet using ASCII.	
+		// Checks if elements of the string are letters, if so then it replaces every letter with the next one in the alphabet using Unicode.	
 		// Also checks for Upper case in order to keep upper-lower case parity in the transformation.
 			
 			if(Character.isLetter(c)) {
 				
 				// Check for lower case letters.
 				
-				if(c >= 'a' && c <= 'z') { 
+				if(c >= 'a' && c < 'z') { 
 					c = (char) (c + 1); 
 					
 				// Wrap around for lower case 'z' (from z -> a).
@@ -37,7 +37,7 @@ public class pu2_alphabet {
 					
 				// Check for upper case letters.	
 					
-				} else if (c >= 'A' || c < 'Z') { 
+				} else if (c >= 'A' && c < 'Z') { 
 					c = (char) (c + 1);
 					
 				// Wrap around (z -> a) for upper case 'Z'.
