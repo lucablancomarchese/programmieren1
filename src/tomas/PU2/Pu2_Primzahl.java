@@ -27,7 +27,6 @@ public class Pu2_Primzahl {
 					
 					if(i % j == 0) {
 						isPrime = false;
-						break;
 					}
 				}
 				
