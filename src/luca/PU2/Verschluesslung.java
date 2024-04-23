@@ -22,7 +22,7 @@ public class Verschluesslung {
 		//Neue Zeichenkette für das neue Wort.
 		String newS =  "";
 		
-		// Schleife um durch die einzelnen Buchstaben des String inputs zu gehen.
+		// Durchgang der einzelnen Zeichen der Zeichenkette.
 		for (int i = 0; i < s.length(); i++) {
 			
 			char c = s.charAt(i);
