@@ -3,14 +3,17 @@ package testat.PU2;
 import java.util.Scanner;
 
 public class RomanNumbers {
+	
+	/*
+	 * Programm, dass eine eingegbene Ganzzahl,
+	 * in eine römische Zahl verändert.
+	*/
 
 	public static void main(String[] args) {
-int i = 0;
+		int i = 0;
 		
 		Scanner in = new Scanner (System.in);
-		
-		
-		
+			
 		String[] roman = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
 		int[] arabic = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
 		

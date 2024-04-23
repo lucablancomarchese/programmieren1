@@ -2,6 +2,12 @@ package testat.PU2;
 
 import java.util.Scanner;
 
+/*
+ * Programm, dass Primzahlen mithilfe 
+ * des "Sieb des Eratosthenes" aussortiert.
+ * 
+*/
+
 public class SieveOfEratosthenes {
 
 	public static void main(String[] args) {

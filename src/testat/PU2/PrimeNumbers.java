@@ -3,6 +3,13 @@ package testat.PU2;
 import java.util.Scanner;
 
 public class PrimeNumbers {
+	
+	/*
+	 * 
+	 * Programm, dass Primzahlen, bis zu einem vom 
+	 * Benutzer eingebenenen Maximum berechnet.
+	 * 
+	 */
 
 	public static void main(String[] args) {
 		int input;
