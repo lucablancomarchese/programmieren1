@@ -11,6 +11,7 @@ public class RoemischeZahlen {
 	*/
 	
 	final static int I = 1, X = 10, C = 100, M = 1000;
+	final static int CM = 900, CD = 400, XC = 90, XL = 40, IX = 9, IV = 5;
 	final static int V = 5, L = 50, D = 500;
 	
 	
