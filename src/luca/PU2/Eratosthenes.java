@@ -1,5 +1,6 @@
 package luca.PU2;
 
+import java.io.Closeable;
 import java.util.Scanner;
 
 public class Eratosthenes {
@@ -15,12 +16,9 @@ public class Eratosthenes {
 		
 		Scanner in = new Scanner(System.in);
 		
-		
-		
-		
-		
 		int input;
 		
+		//Schleife um Eingabe des Maximums zu überprüfen.
 		do {
 			 System.out.print("Gebe dein Maximum ein: ");
 			 input = in.nextInt();
@@ -31,11 +29,7 @@ public class Eratosthenes {
 			}
 		} while(input < 2);
 		
-		
-		
-		
 			boolean[] numbers = new boolean[input];
-			
 			
 			// 0 und 1 auf true setzen, da sie sowieso keine Primzahlen sind
 			numbers[0] = true;
@@ -61,7 +55,7 @@ public class Eratosthenes {
 			System.out.print("Die Primzahlen bis " + (input-1) + " lauten: ");
 			
 			
-			// Ausgabe der Primzahlen
+			// Ausgabe aller Primzahlen
 			for (int k = 0; k < numbers.length; k++) {
 				
 				if (!numbers[k]) {
@@ -69,6 +63,8 @@ public class Eratosthenes {
 				}
 				
 			} 
+			
+			in.close();
 			
 		
 		
