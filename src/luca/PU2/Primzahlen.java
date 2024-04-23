@@ -2,6 +2,13 @@ package luca.PU2;
 
 import java.util.Scanner;
 
+/*
+ * 
+ * Programm, dass Primzahlen, bis zu einem vom 
+ * Benutzer eingebenenen Maximum berechnet.
+ * 
+ */
+
 public class Primzahlen {
 
 	public static void main(String[] args) {
@@ -10,7 +17,14 @@ public class Primzahlen {
 		
 		System.out.println("Bitte geben Sie Ihr Maximum ein: ");
 		
-		int input = in.nextInt();
+		int input; 
+		
+		do {
+			input = in.nextInt();
+			if(input < 2) {
+				System.out.println("Bitte gebe eine Zahl, die größer als 1 ist ein!");
+			}
+		} while (input < 2);
 		
 		System.out.println("Primzahlen bis " + input + " sind: ");
 		
@@ -27,7 +41,7 @@ public class Primzahlen {
 			}
 		}
 		
-		System.out.println("Programm beendet!!");
+		System.out.println("Programm beendet!");
 		in.close();
 	}
 
