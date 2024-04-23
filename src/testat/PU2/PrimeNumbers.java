@@ -7,14 +7,20 @@ public class PrimeNumbers {
 	public static void main(String[] args) {
 		int input;
 		
-		
 		Scanner in = new Scanner(System.in);
-		System.out.println("Geben Sie eine Nummer ein: ");
 		
+		do {
+			System.out.println("Geben Sie eine Nummer ein: ");
+			input = in.nextInt();
+			if(input < 2) {
+				System.out.println("Bitte geben Sie eine Zahl die größer als 1 ist ein!");
+			}
 			
-		input = in.nextInt();
+		} while(input < 2);
 		
 		// First loop breaks down inputed number into a range excluding 1 (5 = 5,4,3,2)
+		
+		System.out.println("Primzahlen bis " + input + ":");
 		
 		for(int i = 2; i <= input; i++) {
 			
@@ -33,7 +39,7 @@ public class PrimeNumbers {
 		// If not divisible then number is prime and gets printed in the console.
 			
 			if(isPrime) {
-				System.out.println(i + " ist eine Primzahl");
+				System.out.println(" [ "+i+" ] ");
 			}
 		}
 		in.close();	

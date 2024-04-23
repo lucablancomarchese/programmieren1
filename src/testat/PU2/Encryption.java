@@ -11,12 +11,12 @@ public class Encryption {
 
 	public static void main(String[] args) {
 		
-		// Erstellung eines Scanner-Objekts um Benutzereingabe zu lesen.
-				Scanner in = new Scanner(System.in);
+			// Erstellung eines Scanner-Objekts um Benutzereingabe zu lesen.
+			Scanner in = new Scanner(System.in);
 				
-				System.out.println("Bitte geben Sie den zu verschlüsselnden Text ein:");
+			System.out.println("Bitte geben Sie den zu verschlüsselnden Text ein:");
 				
-				String s = in.nextLine();
+			String s = in.nextLine();
 				
 				//Neue Zeichenkette für das neue Wort.
 				String newS =  "";
