@@ -2,20 +2,29 @@ package luca.PU2;
 
 import java.util.Scanner;
 
-//Programm, das eine Zeichenkette um Ihre jeweiligen drauffolgenden Buchstaben verschlüsselt.
+/*
+ * Programm, dass die jeweiligen Buchstaben eines Wortes
+ * um eins weiter verschiebt und somit verschlüsselt.
+*/
 
 
 public class Verschluesslung {
 
 	public static void main(String[] args) {
+		
+		// Erstellung eines Scanner-Objekts um Benutzereingabe zu lesen.
 		Scanner in = new Scanner(System.in);
 		
 		System.out.println("Bitte geben Sie den zu verschlüsselnden Text ein:");
 		
 		String s = in.nextLine();
+		
+		//Neue Zeichenkette für das neue Wort.
 		String newS =  "";
 		
+		// Schleife um durch die einzelnen Buchstaben des String inputs zu gehen.
 		for (int i = 0; i < s.length(); i++) {
+			
 			char c = s.charAt(i);
 			int j;
 			
@@ -28,11 +37,12 @@ public class Verschluesslung {
 			} else if(c == 'Z') {
 				c = 'A';
 			} 
-			
-			newS = newS + c;	
+			// Das neue Zeichen wird mit dem neuen Wort konkateniert.
+			newS += c;	
 			
 		}
 		
+		// Ausgabe des Verschlüsselten Wortes
 		System.out.println("Verschlüsselter Text: " + newS);
 		
 		in.close();
