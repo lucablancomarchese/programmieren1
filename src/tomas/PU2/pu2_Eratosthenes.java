@@ -29,6 +29,7 @@ public class pu2_Eratosthenes {
 		}
 		
 		System.out.println("Prime numbers up to " + input + " ");
+		
 		for(int i = 2; i <= input; i++) {
 			if (isPrime[i]) {
 				System.out.println(i + " ");
