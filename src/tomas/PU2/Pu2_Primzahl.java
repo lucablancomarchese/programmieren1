@@ -6,7 +6,6 @@ public class Pu2_Primzahl {
 	public static void main(String[] args) {
 			
 			int input;
-			
 		
 			Scanner in = new Scanner(System.in);
 			System.out.println("Geben Sie eine Nummer ein: ");
@@ -33,7 +32,7 @@ public class Pu2_Primzahl {
 			// If not divisible then number is prime and gets printed in the console.
 				
 				if(isPrime) {
-					System.out.println(i + " ist eine Primzahl");
+					System.out.println(i + " ist eine Primzahl.");
 				}
 			}
 			in.close();	

@@ -5,10 +5,7 @@ import java.util.Scanner;
 public class PrimeNumbers {
 	
 	/*
-	 * 
-	 * Programm, dass Primzahlen, bis zu einem vom 
-	 * Benutzer eingebenenen Maximum berechnet.
-	 * 
+	 * Program that calculates prime numbers up to a maximum entered by the user.
 	 */
 
 	public static void main(String[] args) {
@@ -17,10 +14,10 @@ public class PrimeNumbers {
 		Scanner in = new Scanner(System.in);
 		
 		do {
-			System.out.println("Geben Sie eine Nummer ein: ");
+			System.out.println("Enter a number: ");
 			input = in.nextInt();
 			if(input < 2) {
-				System.out.println("Bitte geben Sie eine Zahl die größer als 1 ist ein!");
+				System.out.println("Enter a number greater than 1");
 			}
 			
 		} while(input < 2);

@@ -19,7 +19,7 @@ public class RomanNumbers {
 		
 		String output = " ";
 		
-		System.out.println("Enter your desired number: ");
+		System.out.println("Geben Sie Ihre gewünschte Zahl ein: ");
 		int input = in.nextInt();
 		
 		
@@ -49,7 +49,7 @@ public class RomanNumbers {
 		
 		// Prevents the printing of: "Your conversion is: ", when there is an error.	
 		if(output.length() > 1) {
-			System.out.println("Your conversion is: " + output);			
+			System.out.println("Ihre Umwandlung ist: " + output);			
 		}
 		
 		in.close();

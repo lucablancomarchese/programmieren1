@@ -9,15 +9,13 @@ public class pu2_romano {
 		int i = 0;
 		
 		Scanner in = new Scanner (System.in);
-		
-		
-		
+
 		String[] roman = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
 		int[] arabic = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
 		
 		String output = " ";
 		
-		System.out.println("Enter your desired number: ");
+		System.out.println("Geben Sie Ihre gewünschte Zahl ein: ");
 		int input = in.nextInt();
 		
 		
@@ -41,13 +39,13 @@ public class pu2_romano {
 				i++;
 			}
 		} else {
-			System.out.println("Error");
+			System.out.println("Error, Zahl kann nicht in Römischen Zahlen umgewandelt werden.");
 		}
 
 		
-		// Prevents the printing of: "Your conversion is: ", when there is an error.	
+		// Prevents the printing of: "Ihre Umwandlung ist: ", when there is an error.	
 		if(output.length() > 1) {
-			System.out.println("Your conversion is: " + output);			
+			System.out.println("Ihre Umwandlung ist: " + output);			
 		}
 	}
 }
