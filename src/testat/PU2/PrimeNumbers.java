@@ -24,7 +24,7 @@ public class PrimeNumbers {
 		
 		// First loop breaks down inputed number into a range excluding 1 (5 = 5,4,3,2)
 		
-		System.out.println("Primzahlen bis " + input + ":");
+		System.out.println("Prime numbers up to " + input + ":");
 		
 		for(int i = 2; i <= input; i++) {
 			

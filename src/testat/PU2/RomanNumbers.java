@@ -5,8 +5,7 @@ import java.util.Scanner;
 public class RomanNumbers {
 	
 	/*
-	 * Programm, dass eine eingegbene Ganzzahl,
-	 * in eine römische Zahl verändert.
+	 * Program that converts an entered integer into a Roman numeral.
 	*/
 
 	public static void main(String[] args) {
@@ -19,7 +18,7 @@ public class RomanNumbers {
 		
 		String output = " ";
 		
-		System.out.println("Geben Sie Ihre gewünschte Zahl ein: ");
+		System.out.println("Enter a number: ");
 		int input = in.nextInt();
 		
 		
@@ -49,7 +48,7 @@ public class RomanNumbers {
 		
 		// Prevents the printing of: "Your conversion is: ", when there is an error.	
 		if(output.length() > 1) {
-			System.out.println("Ihre Umwandlung ist: " + output);			
+			System.out.println("Your conversion is: " + output);			
 		}
 		
 		in.close();
