@@ -36,17 +36,55 @@ public class Parkhaus {
 	* @return true, wenn beide Eingaben gültig sind, sonst false.
 	*/
 	public static boolean istEingabeGueltig(String einfahrt, String ausfahrt) {
+		
 		boolean istGueltig = true;
 		//Kontrolle auf Validät im Format
 		if(einfahrt.length() != 5 || ausfahrt.length() != 5 || einfahrt.charAt(2) != ':' || ausfahrt.charAt(2) != ':' ) {
 			istGueltig = false;
 		}
-		if(ausfahrt.charAt(0) > 2 && ausfahrt.charAt(1) > 2 && ausfahrt.charAt(3) > 0 && ausfahrt.charAt(4) > 0) {
-			istGueltig = false;
-		}
+		
+		double einfahrtInZahl = konvertiereZeit(einfahrt);
+		double ausfahrtInZahl = konvertiereZeit(ausfahrt);
+		System.out.println(einfahrtInZahl);
+		System.out.println(ausfahrtInZahl);
 		
 		return istGueltig;
 	}
+	
+	
+	/**
+	* Hilfsmethode um aus String einen Double Wert zu machen und um 
+	* Vergleiche mit der Einfahrts und Ausfahrtszeit zu machen.
+	*/
+	public static double konvertiereZeit(String zeit) {
+		double hourInNumber = 0;
+		double minuteInNumber = 0;
+		
+		for (int i = 0; i < zeit.length(); i++) {
+			if(i == 0) {
+				hourInNumber = ((double) zeit.charAt(i)-48) * 10;
+			}
+			if(i == 1) {
+				hourInNumber = hourInNumber + ((double) zeit.charAt(i)-48);
+			}
+			if(i == 3) {
+				minuteInNumber = ((double) zeit.charAt(i)-48) / 10;
+			}
+			if(i == 4) {
+				minuteInNumber = minuteInNumber + ((double) zeit.charAt(i)-48) / 100;
+			}
+		}
+		
+		return hourInNumber + minuteInNumber;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	* Berechnet die Dauer in Minuten, für die Parkgebühren anfallen,
@@ -63,7 +101,6 @@ public class Parkhaus {
 	* @return Die Dauer in Minuten, für die Parkgebühren anfallen, nach Abzug aller
 	* kostenfreien Parkzeiten
 	*/
-	
 	public static int berechneZuZahlendeParkdauer(String einfahrt, String ausfahrt) {
 		return -1;
 	}
@@ -97,6 +134,24 @@ public class Parkhaus {
 		return -1;
 	}
 	
+	/**
+	* Berechnet die Aufteilung des Rückgelds in verschiedene Münzwerte
+	* basierend auf dem übergebenen Gesamtbetrag in Cent.
+	* Die Methode teilt das Rückgeld in die größtmöglichen Münzwerte auf,
+	* beginnend mit 2 Euro, gefolgt von 1 Euro,
+	* 50 Cent, 20 Cent und 10 Cent. Anschliessend gibt diese das Rückgeld in
+	* absteigender Reihenfolge zurück.
+	*
+	* @param rueckgeld Der Rückgeldbetrag in Cent, der aufgeteilt werden soll.
+	* @return Ein Array von ganzen Zahlen, das die Anzahl der Münzen für jede
+	* Stückelung enthält. Die Reihenfolge im Array entspricht: [2 Euro-Münzen,
+	* 1 Euro-Münzen, 50 Cent-Münzen, 20 Cent-Münzen, 10 Cent-Münzen].
+	*
+	public static int[] rueckgeld(int rueckgeld) {
+		return 2;
+		
+	}
+	*/
 	
 
 }
