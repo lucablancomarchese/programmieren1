@@ -45,8 +45,10 @@ public class Parkhaus {
 		
 		double einfahrtInZahl = konvertiereZeit(einfahrt);
 		double ausfahrtInZahl = konvertiereZeit(ausfahrt);
-		System.out.println(einfahrtInZahl);
-		System.out.println(ausfahrtInZahl);
+		
+		if(ausfahrtInZahl - einfahrtInZahl > 16.00) {
+			istGueltig = false;
+		}
 		
 		return istGueltig;
 	}
@@ -55,6 +57,7 @@ public class Parkhaus {
 	/**
 	* Hilfsmethode um aus String einen Double Wert zu machen und um 
 	* Vergleiche mit der Einfahrts und Ausfahrtszeit zu machen.
+	* Der Doppelpunkt wir hiermit einfach zum Komma.
 	*/
 	public static double konvertiereZeit(String zeit) {
 		double hourInNumber = 0;
