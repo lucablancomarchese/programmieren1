@@ -12,10 +12,12 @@ public class Parkhaus {
 		Scanner in = new Scanner(System.in);
 		boolean eingabe;
 		
+		System.out.println("Parkzeitberechnung \n \n");
+		
 		do {
-			System.out.println("Bitte geben Sie Ihre Einfahrtszeit ein (hh:mm): ");
+			System.out.print("Einfahrt (hh:mm): ");
 			einfahrt = in.nextLine();
-			System.out.println("Bitte geben Sie Ihre Ausfahrtszeit ein (hh:mm): ");
+			System.out.print("Ausfahrt (hh:mm): ");
 			ausfahrt = in.nextLine();
 			eingabe = istEingabeGueltig(einfahrt, ausfahrt);		
 		} while(eingabe == false);
@@ -38,7 +40,8 @@ public class Parkhaus {
 	public static boolean istEingabeGueltig(String einfahrt, String ausfahrt) {
 		
 		boolean istGueltig = true;
-		//Kontrolle auf Validät im Format
+		
+		//Kontrolle ob das Format der Eingabe stimmt.
 		if(einfahrt.length() != 5 || ausfahrt.length() != 5 || einfahrt.charAt(2) != ':' || ausfahrt.charAt(2) != ':' ) {
 			istGueltig = false;
 		}
@@ -46,9 +49,12 @@ public class Parkhaus {
 		double einfahrtInZahl = konvertiereZeit(einfahrt);
 		double ausfahrtInZahl = konvertiereZeit(ausfahrt);
 		
-		if(ausfahrtInZahl - einfahrtInZahl > 16.00) {
+		//Überprüfung, ob die Zeiten innerhalb der Betriebszeiten liegen
+		if(ausfahrtInZahl - einfahrtInZahl > 16.00 || einfahrtInZahl < 6.00 || ausfahrtInZahl > 22.00) {
 			istGueltig = false;
 		}
+		
+		
 		
 		return istGueltig;
 	}
