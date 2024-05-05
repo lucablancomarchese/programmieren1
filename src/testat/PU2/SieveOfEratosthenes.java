@@ -33,11 +33,12 @@ Scanner in = new Scanner(System.in);
 			numbers[0] = true;
 			numbers[1] = true;
 		
-			
+			int j;
 			// Schleife um Primzahlen zu sortieren. 
 			for (int i = 2; i < input - i; i++) {
 				
 				//Schleife überprüft, ob Zahl sich um eine Primzahl handelt.
+<<<<<<< HEAD
 				
 				int j = i + 1;
 				while(j < input) {
@@ -56,7 +57,6 @@ Scanner in = new Scanner(System.in);
 //					 
 //					
 //				} 
-		
 			}
 			
 			System.out.print("Die Primzahlen bis " + (input-1) + " lauten: ");
