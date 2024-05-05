@@ -13,6 +13,8 @@ public class PrimeNumbers {
 		
 		Scanner in = new Scanner(System.in);
 		
+		// Checks if entered number is greater than 1
+		
 		do {
 			System.out.println("Enter a number: ");
 			input = in.nextInt();
@@ -22,7 +24,7 @@ public class PrimeNumbers {
 			
 		} while(input < 2);
 		
-		// First loop breaks down inputed number into a range excluding 1 (5 = 5,4,3,2)
+		// First loop breaks down inputed number into a range excluding 1 (5 = 2, 3, 4, 5)
 		
 		System.out.println("Prime numbers up to " + input + ":");
 		
@@ -50,5 +52,3 @@ public class PrimeNumbers {
 	}
 
 	}
-
-

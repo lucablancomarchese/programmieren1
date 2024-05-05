@@ -38,8 +38,3 @@ public class pu2_Eratosthenes {
 		in.close();	
 	}
 }
-
-
-/*  For this task, the use of multiplication and division is prohibited in the entire source code. */ 
-
-/* Use array list for dynamic list and then add 'X' with If statement. */
