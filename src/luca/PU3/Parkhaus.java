@@ -11,7 +11,7 @@ public class Parkhaus {
 		
 		Scanner in = new Scanner(System.in);
 		boolean eingabe;
-		
+
 		System.out.println("Parkzeitberechnung \n \n");
 		
 		do {
@@ -21,6 +21,8 @@ public class Parkhaus {
 			ausfahrt = in.nextLine();
 			eingabe = istEingabeGueltig(einfahrt, ausfahrt);		
 		} while(eingabe == false);
+
+		in.close();
 		
 	}
 		
