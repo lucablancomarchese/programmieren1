@@ -38,9 +38,9 @@ Scanner in = new Scanner(System.in);
 			for (int i = 2; i < input - i; i++) {
 				
 				//Schleife überprüft, ob Zahl sich um eine Primzahl handelt.
-<<<<<<< HEAD
+
 				
-				int j = i + 1;
+				j = i + 1;
 				while(j < input) {
 					if(j % i == 0) {
 						numbers[j] = true;
