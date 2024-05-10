@@ -4,6 +4,12 @@ import java.util.Scanner;
 
 public class Parkhaus {
 	
+	// Max fee of 10000 cents or 10 euro
+	public static final int MAX_FEE = 10000;
+	// First 90 minute fee of 3 euro
+	public static final int FIRST_FEE = 300;
+
+	
 	static String entry;
 	static String exit;
 	
@@ -16,8 +22,8 @@ public class Parkhaus {
 		
 		int i = 0;
 		//Variable to store parking time
-		int parkingTime = 0;
-		double feeToBePayed = 0;
+		int parkingTime;
+		double feeToBePayed;
 		
 		// Allow up to two attempts
         while (i < 2 && !input) {
@@ -47,20 +53,6 @@ public class Parkhaus {
         
         sc.close();
     }
-	
-
-
-	/**
-	 * Checks the validity of the input times in the format hh:mm.
-	 * The method checks,
-	 * whether the times are within the operating hours of the car park
-	 * operating hours of the car park (06:00 to 22:00),
-	 * whether the entry time is not after the exit time and whether the format
-	 * hh:mm (i.e. only numbers and :) are correctly adhered to.
-	 *
-	 * @param entry The entry time as a string in the format hh:mm
-	 * @param exit The exit time as a string in the format hh:mm
-	 */
 
 	
 	public static boolean isInputCorrect(String entry, String exit) {
@@ -68,7 +60,7 @@ public class Parkhaus {
 		
 	    // Check if entry and exit strings have the expected length and format
 	    if (!entry.matches("\\d{2}:\\d{2}") || !exit.matches("\\d{2}:\\d{2}")) {
-	        System.out.println("Invalid input format. Please provide input in the format hh:mm.");
+	        System.out.println("\nInvalid input format. Please provide input in the format hh:mm.");
 	        return false;
 	    }
 	    
@@ -78,34 +70,24 @@ public class Parkhaus {
 	    
 	    int entryHour = Integer.parseInt(entryParts[0]);
 	    int entryMinute = Integer.parseInt(entryParts[1]);
-	    int exitHour = Integer.parseInt(exitParts[0]);
-	    int exitMinute = Integer.parseInt(exitParts[1]);
+	 	int exitHour = Integer.parseInt(exitParts[0]);
+	 	int exitMinute = Integer.parseInt(exitParts[1]);
+	 	
+	 	
 	    
 	    // Check if entry time is within operating hours (06:00 to 22:00)
-	    if (entryHour >= 6 && exitHour <= 22) {
+	    if (entryHour >= 6 && exitHour <= 22 && entryMinute >= 0 && entryMinute < 60 && exitHour >= 6 && exitMinute >= 0 && exitMinute < 60 && exitHour > entryHour) {
+	    	
 	        // Entry time is within operating hours, no need for further checks
 	        return true;
 	    } else {
 	        // Entry time is outside operating hours
-	        System.out.println("Car Park is closed.");
+	        System.out.println("\nError\n");
 	        return false;
 	    }
 	}
 
 	
-	
-	/**
-	 * Calculates the duration in minutes for which parking charges apply,
-	 * taking into account the free parking times.
-	 * The parking fee starts after a free period from 06:00 to 10:00
-	 * as well as an additional first free hour after the start of the parking fee obligation at 10:00 am. 
-	 * If the parking time is zero minutes or the entire parking time is within the free parking period, there are no charges and therefore the parking time = 0.
-	 * @param entry The entry time in the format hh:mm
-	 * @param exit The exit time in the format hh:mm
-	 * @return The duration in minutes for which parking charges apply, after deduction of all
-	 * free parking times
-	 */
-
 	// TODO: Take in note that the time to be payed is always -1 hour (the first hour is for free)
 	public static int parkingTime(String entry, String exit) {
 		
@@ -135,7 +117,7 @@ public class Parkhaus {
 				parkingDuration = 0;
 			}
 			
-			System.out.println("\nYour parking time is (subtracting free hour): " + parkingDuration + " minutes.");
+			System.out.println("\nYour parking time is (minus free hour): " + parkingDuration + " minutes.");
 			
 			return parkingDuration;
 		}
@@ -162,42 +144,83 @@ public class Parkhaus {
 	
 	public static double parkingFee(int parkingTime) {
 		
-		 int totalParkingFee = 0;
-		    
-		    // if parking duration is greater than 90 minutes
-		    if (parkingTime > 90) {
-		        // Flat rate for the first 90 minutes
-		        totalParkingFee = 300; // 3 euro in cents
-		        
-		        // Calculate additional fee for each hour after the first 90 minutes
-		        int additionalHours = (int) Math.ceil((parkingTime - 90) / 60.0);
-		        
-		        // Convert euro to cents
-		        double additionalFee = additionalHours * 1.5 * 100; 
-		        
-		        // Cap the additional fee at 10.00 euro
-		        	// 10.00 euro in cents
-		        if (additionalFee > 1000.0) { 
-		        	// 10.00 euro in cents
-		            additionalFee = 1000.0; 
-		        }
-		        
-		        totalParkingFee += (int) additionalFee;
-		        
-		    } else {
-		        // Flat rate for the first 90 minutes
-		    	// 3 euro in cents
-		    	totalParkingFee = 300; 
-		    }
-		    
-		    // Convert totalParkingFee to euro and cents
-		    int euros = totalParkingFee / 100;
-		    int cents = totalParkingFee % 100;
-		    
-		    // Print the parking fee
-		    System.out.println("\nYour parking fee is: " + euros + " euros and " + cents + " cents");
-		    
-		    return totalParkingFee;	
+		// Parse entry and exit times
+	    String[] entryParts = entry.split(":");
+	    int entryHour = Integer.parseInt(entryParts[0]);
+	    
+	    String[] exitParts = exit.split(":");
+	    int exitHour = Integer.parseInt(exitParts[0]);
+
+	    // Check if parking occurred between 06:00 and 10:00
+	    if (entryHour >= 6 && entryHour <= 10 && exitHour > 10) {
+	    	
+	        // Parking occurred during free hours, but part of the duration is chargeable
+	        // Calculate the duration after 10:00
+	        int remainingParkingTime = parkingTime - (10 - entryHour) * 60;
+	        if (remainingParkingTime <= 0) {
+	        	
+	            // Parking time is less than or equal to 60 minutes, no fee is charged
+	            System.out.println("\nYour parking fee is: 0 euros and 0 cents (Parking less than an hour).");
+	            return 0;
+	        } else {
+	            // Calculate fee for the remaining duration
+	            // Initial fee for the first 90 minutes
+	            int totalParkingFee = 300; 
+	            int additionalHours = (int) Math.ceil(remainingParkingTime / 60.0);
+	            
+	            // Additional fee for each hour after the first 90 minutes
+	            double additionalFee = additionalHours * 1.5 * 100; 
+	            
+	            // Cap the additional fee at 7.00 euro (1000 cents)
+	            if (additionalFee > 700.0) {
+	                additionalFee = 700.0;
+	            }
+	            totalParkingFee += (int) additionalFee;
+
+	            // Convert totalParkingFee to euro and cents
+	            int euros = totalParkingFee / 100;
+	            int cents = totalParkingFee % 100;
+
+	            // Print the parking fee
+	            System.out.println("\nYour parking fee is: " + euros + " euros and " + cents + " cents");
+	            
+	            return totalParkingFee;
+	        }
+	    }
+
+	    // Calculate total parking fee for scenarios other than free parking between 06:00 and 10:00
+	    // Subtracting the first free hour
+	    int remainingParkingTime = parkingTime - 60; 
+	    
+	    if (remainingParkingTime <= 0) {
+	        // Parking time is less than or equal to 60 minutes, no fee is charged
+	        System.out.println("\nYour parking fee is: 0 euros and 0 cents (Parking less than an hour).");
+	        return 0;
+	    } else {
+	        // Calculate fee for the remaining duration
+	        
+	        // Initial fee for the first 90 minutes
+	        int totalParkingFee = 300; 
+	        int additionalHours = (int) Math.ceil(remainingParkingTime / 60.0);
+	        
+	        // Additional fee for each hour after the first 90 minutes
+	        double additionalFee = additionalHours * 1.5 * 100; 
+	        
+	        // Cap the additional fee at 7.00 euro (1000 cents)
+	        if (additionalFee > 700.0) {
+	            additionalFee = 700.0;
+	        }
+	        totalParkingFee += (int) additionalFee;
+
+	        // Convert totalParkingFee to euro and cents
+	        int euros = totalParkingFee / 100;
+	        int cents = totalParkingFee % 100;
+
+	        // Print the parking fee
+	        System.out.println("\nYour parking fee is: " + euros + " euros and " + cents + " cents");
+	        
+	        return totalParkingFee;
+		    }	
 	}
 //
 //	
