@@ -31,6 +31,8 @@ public class ParkhausII {
 		
 		while(!terminate && i < 2) {
 			
+			System.out.println("Parkzeitberechnung\n");
+			
 			System.out.print("Einfahrt (hh:mm): ");
 			entry = sc.nextLine();
 			
@@ -45,24 +47,22 @@ public class ParkhausII {
 		if (isInputCorrect) {
 			
 			calculatePaidParkingPeriod = calculatePaidParkingPeriod (entry, exit);
-			System.out.println("\nTotal parking time: " + calculatePaidParkingPeriod);
-			
+
 			calculateParkingFee = calculateParkingFee (parkdauer);
 			
-			System.out.println("\nEnter your payment: ");
+			System.out.print("\nZahlung (€€,cc): ");
 			zahlung = sc.nextLine();
 			
 			paymentValid = paymentValid (zahlung);
 			change = change (rueckgeld); 
 			
-			System.out.println("Success!");
 			terminate = true;
 		
 		// If the input is incorrect return an error and take an attempt away.
 		// If all attempts are used, then terminate the program.
 		} else {
 			  i++;
-              System.out.println("You have " + (2 - i) + " attempt(s) left. \n");
+              System.out.println("Sie haben noch " + (2 - i) + " Versuch(e).\n");
               terminate = false;
 			
 			}
@@ -74,7 +74,7 @@ public class ParkhausII {
 		
 		if (!entry.matches("\\d{2}:\\d{2}") || !exit.matches("\\d{2}:\\d{2}")) {
 			
-			System.out.println("\nInvalid input format. Please provide input in the format hh:mm.");
+			System.out.println("\nUngültiges Eingabeformat. Bitte geben Sie die Eingabe im Format hh:mm ein");
 			return false;
 			
 		}
@@ -107,7 +107,7 @@ public class ParkhausII {
 	    	
 	    } else {
 	    	
-	    	System.out.println("Error, invalid inputs");
+	    	System.out.println("Fehler, ungültige Eingaben");
 	    	return false;
 	    	
 	    }
@@ -202,7 +202,7 @@ public class ParkhausII {
                 int cents = fee % 100;
                 
                 // Print the parking fee
-                System.out.println("\nYour parking fee is: " + euros + " euros and " + cents + " cents");
+                System.out.println("\nParkgebuehr: " + euros + " Euro und " + cents + " Cent\n");
 
             } else {
             	   
@@ -226,7 +226,7 @@ public class ParkhausII {
 	    // Check if the input contains both euro and cents parts
 	    if (splittedZahlung.length != 2) {
 	    	
-	        System.out.println("\nInvalid input format. Please provide input in the format €€,cc");
+	        System.out.println("\nUngültiges Eingabeformat. Bitte geben Sie Ihre Eingaben im Format €€,cc ein");
 	        return -1;
 	        
 	    }
@@ -234,7 +234,7 @@ public class ParkhausII {
 	    // Check if both euro and cents parts are integers
 	    if (!splittedZahlung[0].matches("\\d+") || !splittedZahlung[1].matches("\\d+")) {
 	    	
-	        System.out.println("\nInvalid input format. Please provide input in the format €€,cc");
+	        System.out.println("\nUngültiges Eingabeformat. Bitte geben Sie Ihre Eingaben im Format €€,cc ein");
 	        return -1;
 	        
 	    }
@@ -245,15 +245,13 @@ public class ParkhausII {
 	    // Check if cents part is divisible by 10
 	    if (parsedCents % 10 != 0) {
 	    	
-	        System.out.println("\nCents should be in increments of 10. Please provide valid input.");
+	        System.out.println("\nDie Cent-Angabe sollte in 10er-Schritten erfolgen. Bitte geben Sie eine gültige Eingabe ein.");
 	        return -1;
 	        
 	    }
 
 	    // Calculate and print the payment in cents
 	    int centConversion = (parsedEuro * 100) + parsedCents;
-	    
-	    System.out.println("\nYour payment in cents: " + centConversion);
 	    
 	    return centConversion;
 	    
@@ -263,6 +261,46 @@ public class ParkhausII {
 		
 		int paymentValid = paymentValid (zahlung);
 		int calculateParkingFee = calculateParkingFee (parkdauer);
+		
+		if (paymentValid >= calculateParkingFee) {
+		    // Calculates change in cents
+		    int change = paymentValid - calculateParkingFee;
+
+		    // Define denominations and their values in cents
+		    int[] centPayment = {200, 100, 50, 20, 10};
+		    String[] returnPayment = {"2 Euro", "1 Euro", "50 Cent", "20 Cent", "10 Cent"};
+
+		    // Initialize array to hold the output
+		    String[] output = new String[centPayment.length];
+
+		    // Iterate through denominations and calculate change for each
+		    for (int i = 0; i < centPayment.length; i++) {
+		    	
+		    	// Calculate the number of coins/bills for the denomination
+		    	int amount = change / centPayment[i]; 
+		    	
+		    	// Store denomination and amount in output array
+		        output[i] = returnPayment[i] + ": " + amount; 
+		        
+		        // Update change to be the remainder after using the current denomination
+		        change %= centPayment[i]; 
+		    }
+
+		    // Display the output array
+		    System.out.println("\nRueckgeld\n");
+		    
+		    for (String denomination : output) {
+		    	
+		        System.out.println(denomination);
+		    
+		    }
+			
+		} else {
+			
+			System.out.println("Du Geizhals steckst jetzt fest!");
+			return 0;
+			
+		}
 		
 		
 		// Return an array of whole numbers that shows the amount of coins being given back
