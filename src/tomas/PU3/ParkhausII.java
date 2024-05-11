@@ -266,6 +266,8 @@ public class ParkhausII {
 		    // Calculates change in cents
 		    int change = paymentValid - calculateParkingFee;
 
+		    // ** SECTION BASED ON ROMAN NUMERALS EXCERCISE **
+		    
 		    // Define denominations and their values in cents
 		    int[] centPayment = {200, 100, 50, 20, 10};
 		    String[] returnPayment = {"2 Euro", "1 Euro", "50 Cent", "20 Cent", "10 Cent"};
