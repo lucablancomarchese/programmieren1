@@ -74,7 +74,7 @@ public class ParkhausII {
 		
 		if (!entry.matches("\\d{2}:\\d{2}") || !exit.matches("\\d{2}:\\d{2}")) {
 			
-			System.out.println("\nUngültiges Eingabeformat. Bitte geben Sie die Eingabe im Format hh:mm ein");
+			System.out.println("\nUngueltiges Eingabeformat. Bitte geben Sie die Eingabe im Format hh:mm ein");
 			return false;
 			
 		}
@@ -107,7 +107,7 @@ public class ParkhausII {
 	    	
 	    } else {
 	    	
-	    	System.out.println("Fehler, ungültige Eingaben");
+	    	System.out.println("Fehler, ungueltige Eingaben");
 	    	return false;
 	    	
 	    }
@@ -226,7 +226,7 @@ public class ParkhausII {
 	    // Check if the input contains both euro and cents parts
 	    if (splittedZahlung.length != 2) {
 	    	
-	        System.out.println("\nUngültiges Eingabeformat. Bitte geben Sie Ihre Eingaben im Format €€,cc ein");
+	        System.out.println("\nUngueltiges Eingabeformat. Bitte geben Sie Ihre Eingaben im Format €€,cc ein");
 	        return -1;
 	        
 	    }
@@ -234,7 +234,7 @@ public class ParkhausII {
 	    // Check if both euro and cents parts are integers
 	    if (!splittedZahlung[0].matches("\\d+") || !splittedZahlung[1].matches("\\d+")) {
 	    	
-	        System.out.println("\nUngültiges Eingabeformat. Bitte geben Sie Ihre Eingaben im Format €€,cc ein");
+	        System.out.println("\nUngueltiges Eingabeformat. Bitte geben Sie Ihre Eingaben im Format €€,cc ein");
 	        return -1;
 	        
 	    }
