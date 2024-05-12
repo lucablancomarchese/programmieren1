@@ -10,19 +10,31 @@ public class Parkhaus {
 	public static void main(String[] args) {
 		
 		Scanner in = new Scanner(System.in);
-		boolean eingabe;
-
-		System.out.println("Parkzeitberechnung \n \n");
+		boolean parkhaus = false;
 		
-		do {
-			System.out.print("Einfahrt (hh:mm): ");
-			einfahrt = in.nextLine();
-			System.out.print("Ausfahrt (hh:mm): ");
-			ausfahrt = in.nextLine();
-			eingabe = istEingabeGueltig(einfahrt, ausfahrt);		
-		} while(eingabe == false);
+		
+		
+		System.out.println("Parkzeitberechnung \n \n");
 
-		in.close();
+		System.out.print("Einfahrt (hh:mm): ");
+		einfahrt = in.nextLine();
+		System.out.print("Ausfahrt (hh:mm): ");
+		ausfahrt = in.nextLine();	
+		
+		parkhaus = istEingabeGueltig(einfahrt, ausfahrt);
+		
+		if (!parkhaus) {
+			System.out.println("Falsche Eingabe! Programm beendet!");
+		} else {
+			berechneZuZahlendeParkdauer(einfahrt, ausfahrt);
+		}
+		
+		
+		
+		
+	
+		konvertiereEingabe(einfahrt);
+		
 		
 	}
 		
@@ -38,55 +50,79 @@ public class Parkhaus {
 	* @param einfahrt Die Einfahrtszeit als String im Format hh:mm
 	* @param ausfahrt Die Ausfahrtszeit als String im Format hh:mm
 	* @return true, wenn beide Eingaben gültig sind, sonst false.
+	*
 	*/
-	public static boolean istEingabeGueltig(String einfahrt, String ausfahrt) {
+		public static boolean istEingabeGueltig(String einfahrt, String ausfahrt) {
 		
-		boolean istGueltig = true;
+		
 		
 		//Kontrolle ob das Format der Eingabe stimmt.
 		if(einfahrt.length() != 5 || ausfahrt.length() != 5 || einfahrt.charAt(2) != ':' || ausfahrt.charAt(2) != ':' ) {
-			istGueltig = false;
+			System.out.println("Bitte halten, Sie sich an das richtige Format!");
+			return false;
 		}
 		
-		double einfahrtInZahl = konvertiereZeit(einfahrt);
-		double ausfahrtInZahl = konvertiereZeit(ausfahrt);
+		//Kontrolle ob die Eingabe stimmt
+		if(!ueberpruefeMinutenEingabe(einfahrt) || !ueberpruefeMinutenEingabe(ausfahrt)) {
+			System.out.println("Bitte geben Sie eine gültige Minutenzahl ein!");
+			return false;
+		}
+	
+		int einfahrtInMinuten = konvertiereEingabe(einfahrt);
+		int ausfahrtInMinuten = konvertiereEingabe(ausfahrt);
+		System.out.println(einfahrtInMinuten);
+		System.out.println(ausfahrtInMinuten);
+		
 		
 		//Überprüfung, ob die Zeiten innerhalb der Betriebszeiten liegen
-		if(ausfahrtInZahl - einfahrtInZahl > 16.00 || einfahrtInZahl < 6.00 || ausfahrtInZahl > 22.00) {
-			istGueltig = false;
+		if(ausfahrtInMinuten - einfahrtInMinuten > 960 || einfahrtInMinuten < 360 || ausfahrtInMinuten > 1320) {
+			System.out.println("Bitte halten sie sich an die Öffnungszeiten!");
+			return false;
 		}
 		
 		
 		
-		return istGueltig;
-	}
+		return true;
+		}
+	
 	
 	
 	/**
-	* Hilfsmethode um aus String einen Double Wert zu machen und um 
+	* Hilfsmethode um aus String einen Integer zu machen und um 
 	* Vergleiche mit der Einfahrts und Ausfahrtszeit zu machen.
 	* Der Doppelpunkt wir hiermit einfach zum Komma.
 	*/
-	public static double konvertiereZeit(String zeit) {
-		double hourInNumber = 0;
-		double minuteInNumber = 0;
 		
-		for (int i = 0; i < zeit.length(); i++) {
-			if(i == 0) {
-				hourInNumber = ((double) zeit.charAt(i)-48) * 10;
-			}
-			if(i == 1) {
-				hourInNumber = hourInNumber + ((double) zeit.charAt(i)-48);
-			}
-			if(i == 3) {
-				minuteInNumber = ((double) zeit.charAt(i)-48) / 10;
-			}
-			if(i == 4) {
-				minuteInNumber = minuteInNumber + ((double) zeit.charAt(i)-48) / 100;
-			}
+	public static int konvertiereEingabe(String eingabe) {
+		
+		String parts[] = eingabe.split(":");
+		int convertedParts[] = new int[parts.length];
+				for (int i = 0; i < parts.length; i++) {
+					convertedParts[i] = Integer.parseInt(parts[i]);
+					
+					
+				}
+		int eingabeInMinuten = convertedParts[0] * 60 + convertedParts[1];
+		
+		return eingabeInMinuten;
+	}
+	
+	/**
+	* Hilfsmethode um aus String einen Integer zu machen und um 
+	* Vergleiche mit der Einfahrts und Ausfahrtszeit zu machen.
+	* Der Doppelpunkt wir hiermit einfach zum Komma.
+	*/
+	
+	public static boolean ueberpruefeMinutenEingabe(String eingabe) {
+		
+		String parts[] = eingabe.split(":");
+		int minutePart = Integer.parseInt(parts[1]);
+		
+		if(minutePart > 60 && minutePart < 100) {
+			return false;
 		}
 		
-		return hourInNumber + minuteInNumber;
+		return true;
 	}
 	
 	
@@ -113,7 +149,30 @@ public class Parkhaus {
 	* kostenfreien Parkzeiten
 	*/
 	public static int berechneZuZahlendeParkdauer(String einfahrt, String ausfahrt) {
-		return -1;
+		
+		int einfahrtInMinuten = konvertiereEingabe(einfahrt);
+		int ausfahrtInMinuten = konvertiereEingabe(ausfahrt);
+		int parkdauer= 0;
+		
+		// Alles bis 11:00 ist kostenlos
+		if(ausfahrtInMinuten <= 660) {
+			parkdauer = 0;
+			
+		
+		} else if (einfahrtInMinuten <= 660 && ausfahrtInMinuten > 660) {
+			parkdauer = ausfahrtInMinuten - 660;
+		} else if(einfahrtInMinuten > 600) {
+			parkdauer = ausfahrtInMinuten - einfahrtInMinuten - 60;
+			
+			if(parkdauer < 0) {
+				parkdauer = 90;
+			}
+		} 
+		System.out.println(parkdauer);
+		
+		
+		
+		return parkdauer;
 	}
 	
 	/**
