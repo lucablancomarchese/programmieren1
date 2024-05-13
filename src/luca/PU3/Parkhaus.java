@@ -11,32 +11,51 @@ public class Parkhaus {
 		
 		Scanner in = new Scanner(System.in);
 		boolean parkhaus = false;
-		
-		
+		int parkgebuehr = 0;
+		int parkdauer = 0;
 		
 		System.out.println("Parkzeitberechnung \n \n");
-
 		System.out.print("Einfahrt (hh:mm): ");
 		einfahrt = in.nextLine();
 		System.out.print("Ausfahrt (hh:mm): ");
 		ausfahrt = in.nextLine();	
-		
 		parkhaus = istEingabeGueltig(einfahrt, ausfahrt);
 		
-		if (!parkhaus) {
-			System.out.println("Falsche Eingabe! Programm beendet!");
+		if(parkhaus==true) {
+			parkdauer = berechneZuZahlendeParkdauer(einfahrt, ausfahrt);
+			parkgebuehr = berechneParkgebuehr(parkdauer);
+			
+			if (parkgebuehr > 0) {
+				System.out.print("Zahlung (€€,cc): ");
+				String zahlung = in.nextLine();
+				int convertedZahlung = zahlungGueltig(zahlung);
+				
+				
+				if( convertedZahlung < parkgebuehr) {
+					System.out.println("Du Geizhals steckst jetzt fest!");
+				}else if(convertedZahlung == -1) {
+					System.out.println("Falscher Geldbetrag!");
+				}else {
+					int rueckgeld = convertedZahlung - parkgebuehr;
+					System.out.println(rueckgeld);
+					int[] coins = rueckgeld(rueckgeld);
+					System.out.println("\nRueckgeld");
+					for (int i = 0; i < coins.length; i++) {
+						if(i == 0) {System.out.println("2 Euro: " + coins[i]);}
+						if(i == 1) {System.out.println("1 Euro: " + coins[i]);}
+						if(i == 2) {System.out.println("50 Cent: " + coins[i]);}
+						if(i == 3) {System.out.println("20 Cent: " + coins[i]);}
+						if(i == 4) {System.out.println("10 Cent: " + coins[i]);}
+						
+					}
+					
+				}
+			}	
 		} else {
-			berechneZuZahlendeParkdauer(einfahrt, ausfahrt);
+			System.out.println("Programm beendet!");
 		}
-		
-		
-		
-		
-	
-		konvertiereEingabe(einfahrt);
-		
-		
 	}
+	
 		
 
 	/**
@@ -54,35 +73,36 @@ public class Parkhaus {
 	*/
 		public static boolean istEingabeGueltig(String einfahrt, String ausfahrt) {
 		
-		
-		
-		//Kontrolle ob das Format der Eingabe stimmt.
-		if(einfahrt.length() != 5 || ausfahrt.length() != 5 || einfahrt.charAt(2) != ':' || ausfahrt.charAt(2) != ':' ) {
-			System.out.println("Bitte halten, Sie sich an das richtige Format!");
-			return false;
-		}
-		
-		//Kontrolle ob die Eingabe stimmt
-		if(!ueberpruefeMinutenEingabe(einfahrt) || !ueberpruefeMinutenEingabe(ausfahrt)) {
-			System.out.println("Bitte geben Sie eine gültige Minutenzahl ein!");
-			return false;
-		}
-	
-		int einfahrtInMinuten = konvertiereEingabe(einfahrt);
-		int ausfahrtInMinuten = konvertiereEingabe(ausfahrt);
-		System.out.println(einfahrtInMinuten);
-		System.out.println(ausfahrtInMinuten);
-		
-		
-		//Überprüfung, ob die Zeiten innerhalb der Betriebszeiten liegen
-		if(ausfahrtInMinuten - einfahrtInMinuten > 960 || einfahrtInMinuten < 360 || ausfahrtInMinuten > 1320) {
-			System.out.println("Bitte halten sie sich an die Öffnungszeiten!");
-			return false;
-		}
-		
-		
-		
-		return true;
+			//Überprüfung, ob das Format stimmt.
+			if(einfahrt.length() != 5 || ausfahrt.length() != 5 || einfahrt.charAt(2) != ':' || ausfahrt.charAt(2) != ':' ) {
+				System.out.println("Bitte halten, Sie sich an das richtige Format!");
+				return false;
+			}
+
+			//Überprüfung, ob die Minuteneingabe innerhalb der Minutenzeit sind.
+			if(!ueberpruefeMinutenEingabe(einfahrt) || !ueberpruefeMinutenEingabe(ausfahrt)) {
+				System.out.println("Bitte geben Sie eine gültige Minutenzahl ein!");
+				return false;
+			}
+
+			int einfahrtInMinuten = konvertiereEingabe(einfahrt);
+			int ausfahrtInMinuten = konvertiereEingabe(ausfahrt);
+			//System.out.println(einfahrtInMinuten);
+			//System.out.println(ausfahrtInMinuten);
+
+
+			//Überprüfung, ob die Zeiten innerhalb der Betriebszeiten liegen.
+			if(ausfahrtInMinuten - einfahrtInMinuten > 960 || einfahrtInMinuten < 360 || ausfahrtInMinuten > 1320) {
+				System.out.println("Bitte halten sie sich an die Öffnungszeiten!");
+				return false;
+			}
+			
+			if(ausfahrtInMinuten < einfahrtInMinuten) {
+				System.out.println("Die Einfahrtszeit muss vor der Ausfahrtszeit sein!");
+				return false;
+			}
+
+			return true;
 		}
 	
 	
@@ -93,19 +113,19 @@ public class Parkhaus {
 	* Der Doppelpunkt wir hiermit einfach zum Komma.
 	*/
 		
-	public static int konvertiereEingabe(String eingabe) {
-		
-		String parts[] = eingabe.split(":");
-		int convertedParts[] = new int[parts.length];
-				for (int i = 0; i < parts.length; i++) {
-					convertedParts[i] = Integer.parseInt(parts[i]);
-					
-					
-				}
-		int eingabeInMinuten = convertedParts[0] * 60 + convertedParts[1];
-		
-		return eingabeInMinuten;
-	}
+		public static int konvertiereEingabe(String eingabe) {
+			
+			String parts[] = eingabe.split(":");
+			int convertedParts[] = new int[parts.length];
+			
+			for (int i = 0; i < parts.length; i++) {
+				convertedParts[i] = Integer.parseInt(parts[i]);
+			}
+			
+			int eingabeInMinuten = convertedParts[0] * 60 + convertedParts[1];
+
+			return eingabeInMinuten;
+		}
 	
 	/**
 	* Hilfsmethode um aus String einen Integer zu machen und um 
@@ -124,15 +144,7 @@ public class Parkhaus {
 		
 		return true;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	* Berechnet die Dauer in Minuten, für die Parkgebühren anfallen,
 	* unter Berücksichtigung der gebührenfreien Zeiten.
@@ -157,8 +169,6 @@ public class Parkhaus {
 		// Alles bis 11:00 ist kostenlos
 		if(ausfahrtInMinuten <= 660) {
 			parkdauer = 0;
-			
-		
 		} else if (einfahrtInMinuten <= 660 && ausfahrtInMinuten > 660) {
 			parkdauer = ausfahrtInMinuten - 660;
 		} else if(einfahrtInMinuten > 600) {
@@ -168,7 +178,8 @@ public class Parkhaus {
 				parkdauer = 90;
 			}
 		} 
-		System.out.println(parkdauer);
+		//System.out.println(parkdauer);
+		//berechneParkgebuehr(parkdauer);
 		
 		
 		
@@ -188,7 +199,47 @@ public class Parkhaus {
 	*/
 	
 	public static int berechneParkgebuehr(int parkdauer) {
-		return -1;
+		int parkgebuehr = 0;
+		
+		if(parkdauer == 0) {
+			parkgebuehr = 0;
+			System.out.println("\nKeine Parkgebuehr erforderlich.");
+		} else {
+			
+			parkdauer = parkdauer - 90;
+			parkgebuehr = parkgebuehr + 300;
+			
+			if (parkdauer > 0) {
+				while (parkdauer > 0) {
+					
+					if(parkdauer <= 0) {
+						break;
+					}
+					
+					
+					parkgebuehr += 150;
+					parkdauer -= 60; 
+
+				}
+				
+			}
+			
+			if (parkgebuehr > 1000) {
+				parkgebuehr = 1000;
+				
+			}
+			
+			
+			
+			
+		}
+		
+		int cent, euro;
+		cent = parkgebuehr % 100;
+		euro = (parkgebuehr - cent) / 100;
+		System.out.println("\nParkgebuehr: " + euro + " Euro und " + cent + " Cent");
+	
+		return parkgebuehr;
 	}
 	
 	/**
@@ -201,7 +252,22 @@ public class Parkhaus {
 	* @return Den Wert der Zahlung in Cent, wenn diese gültig ist; andernfalls -1.
 	*/
 	public static int zahlungGueltig(String zahlung) {
-		return -1;
+		
+		
+		
+		String parts[] = zahlung.split(",");
+		int[] convertedParts = new int[parts.length];
+		for (int i = 0; i < parts.length; i++) {
+			convertedParts[i] = Integer.parseInt(parts[i]);
+		}
+		
+		if (convertedParts[1] % 10 != 0) {
+			return -1;
+		}
+		
+		int convertedZahlung = convertedParts[0] * 100 + convertedParts[1];
+		
+		return convertedZahlung;
 	}
 	
 	/**
@@ -216,12 +282,25 @@ public class Parkhaus {
 	* @return Ein Array von ganzen Zahlen, das die Anzahl der Münzen für jede
 	* Stückelung enthält. Die Reihenfolge im Array entspricht: [2 Euro-Münzen,
 	* 1 Euro-Münzen, 50 Cent-Münzen, 20 Cent-Münzen, 10 Cent-Münzen].
-	*
-	public static int[] rueckgeld(int rueckgeld) {
-		return 2;
-		
-	}
 	*/
+	public static int[] rueckgeld(int rueckgeld) {
+		
+		int[] coins = new int[5]; // Münztypen: 10, 20, 50, 100, 200
+	    int[] coinValues = {200, 100, 50, 20, 10}; // Werte der Münztypen
+	    int i = 0;
+
+	    while (rueckgeld > 0 && i < coins.length) {
+	        while (rueckgeld >= coinValues[i]) {
+	            coins[i]++;
+	            rueckgeld -= coinValues[i];
+	        }
+	        i++;
+	    }
+	    return coins;
+
+	
+	}
+	
 	
 
 }
