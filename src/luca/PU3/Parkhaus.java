@@ -32,10 +32,15 @@ public class Parkhaus {
 				
 				
 				if( convertedZahlung < parkgebuehr) {
+					if(convertedZahlung == -1) {
+						System.out.println("Falscher Geldbetrag!");
+					}
+					if(convertedZahlung < -1) {
 					System.out.println("Du Geizhals steckst jetzt fest!");
-				}else if(convertedZahlung == -1) {
-					System.out.println("Falscher Geldbetrag!");
-				}else {
+					}
+				
+					
+				} else {
 					int rueckgeld = convertedZahlung - parkgebuehr;
 					System.out.println(rueckgeld);
 					int[] coins = rueckgeld(rueckgeld);
@@ -108,11 +113,11 @@ public class Parkhaus {
 	
 	
 	/**
-	* Hilfsmethode um aus String einen Integer zu machen und um 
-	* Vergleiche mit der Einfahrts und Ausfahrtszeit zu machen.
-	* Der Doppelpunkt wir hiermit einfach zum Komma.
+	* Hilfsmethode um die Zeiteingabe in Minuten umzuwandeln
+	* 
+	* @param Zeitangabe (Einfahrts- oder Ausfahrtszeit.)
+	* @return die Zeiteingabe in Minuten.
 	*/
-		
 		public static int konvertiereEingabe(String eingabe) {
 			
 			String parts[] = eingabe.split(":");
@@ -128,9 +133,10 @@ public class Parkhaus {
 		}
 	
 	/**
-	* Hilfsmethode um aus String einen Integer zu machen und um 
-	* Vergleiche mit der Einfahrts und Ausfahrtszeit zu machen.
-	* Der Doppelpunkt wir hiermit einfach zum Komma.
+	* Hilfsmethode um die Minuteneingabe der Zeiten zu überprüfen
+	* 
+	* @param Zeitangabe (Einfahrts- oder Ausfahrtszeit.)
+	* @return true, wenn die Minuten sich im Uhrenformat Zeitformat sind.
 	*/
 	
 	public static boolean ueberpruefeMinutenEingabe(String eingabe) {
@@ -166,23 +172,25 @@ public class Parkhaus {
 		int ausfahrtInMinuten = konvertiereEingabe(ausfahrt);
 		int parkdauer= 0;
 		
-		// Alles bis 11:00 ist kostenlos
+		// Alles zwischen 6:00 und 11:00 ist kostenlos.
 		if(ausfahrtInMinuten <= 660) {
 			parkdauer = 0;
+		// Fall, wenn Parkzeit zwischen gebührenfreien und g ebührenpflichtigen Zeit ist.
 		} else if (einfahrtInMinuten <= 660 && ausfahrtInMinuten > 660) {
+			//Parkdauer wird erst ab 11:00 gezählt.
 			parkdauer = ausfahrtInMinuten - 660;
+		// Fall, alles ab 10:00 
 		} else if(einfahrtInMinuten > 600) {
+			//Erste Stunde wird abgezogen
 			parkdauer = ausfahrtInMinuten - einfahrtInMinuten - 60;
 			
+			//Fall, sollte dann die Parkdauer unter 0 gehen.
 			if(parkdauer < 0) {
+				// zuZahlenden Parkdauer beträgt 90 Minuten als0 3,00€
 				parkdauer = 90;
 			}
 		} 
-		//System.out.println(parkdauer);
-		//berechneParkgebuehr(parkdauer);
-		
-		
-		
+	
 		return parkdauer;
 	}
 	
@@ -205,40 +213,31 @@ public class Parkhaus {
 			parkgebuehr = 0;
 			System.out.println("\nKeine Parkgebuehr erforderlich.");
 		} else {
-			
+			// Berechnet die ersten 1.5 Stunden
 			parkdauer = parkdauer - 90;
 			parkgebuehr = parkgebuehr + 300;
-			
+			// Fall, wenn die Parkdauer noch nicht 0 ist.
 			if (parkdauer > 0) {
+				//Solange Parkdauer noch nicht 0 ist, werden für jede angefangene Stunde 1,50€ addiert.
 				while (parkdauer > 0) {
 					
 					if(parkdauer <= 0) {
 						break;
 					}
-					
-					
 					parkgebuehr += 150;
 					parkdauer -= 60; 
-
 				}
-				
 			}
-			
+			// Checkt, dass Parkgebühren nicht mehr als 10,00 werden.
 			if (parkgebuehr > 1000) {
-				parkgebuehr = 1000;
-				
-			}
-			
-			
-			
-			
+				parkgebuehr = 1000;	
+			}	
+			//Ausgabe der Parkgebuehr 
+			int cent, euro;
+			cent = parkgebuehr % 100;
+			euro = (parkgebuehr - cent) / 100;
+			System.out.println("\nParkgebuehr: " + euro + " Euro und " + cent + " Cent");
 		}
-		
-		int cent, euro;
-		cent = parkgebuehr % 100;
-		euro = (parkgebuehr - cent) / 100;
-		System.out.println("\nParkgebuehr: " + euro + " Euro und " + cent + " Cent");
-	
 		return parkgebuehr;
 	}
 	
@@ -252,20 +251,19 @@ public class Parkhaus {
 	* @return Den Wert der Zahlung in Cent, wenn diese gültig ist; andernfalls -1.
 	*/
 	public static int zahlungGueltig(String zahlung) {
-		
-		
-		
+		//Umwandlung der Zahlung in Cents.
 		String parts[] = zahlung.split(",");
 		int[] convertedParts = new int[parts.length];
 		for (int i = 0; i < parts.length; i++) {
 			convertedParts[i] = Integer.parseInt(parts[i]);
 		}
 		
-		if (convertedParts[1] % 10 != 0) {
+		int convertedZahlung = convertedParts[0] * 100 + convertedParts[1];
+		//Überprüft, dass die Zahlung nicht über 99,90 und nur durch 10 teilbar ist.
+		if(convertedZahlung > 9900 || convertedZahlung % 10 != 0) {
+			System.out.println("Falscher Geldbetrag!");
 			return -1;
 		}
-		
-		int convertedZahlung = convertedParts[0] * 100 + convertedParts[1];
 		
 		return convertedZahlung;
 	}
