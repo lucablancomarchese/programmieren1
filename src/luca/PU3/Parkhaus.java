@@ -79,7 +79,7 @@ public class Parkhaus {
 		public static boolean istEingabeGueltig(String einfahrt, String ausfahrt) {
 		
 			//Überprüfung, ob das Format stimmt.
-			if(einfahrt.length() != 5 || ausfahrt.length() != 5 || einfahrt.charAt(2) != ':' || ausfahrt.charAt(2) != ':' ) {
+			if(!einfahrt.matches("\\d{2}:\\d{2}") || !ausfahrt.matches("\\d{2}:\\d{2}")) {
 				System.out.println("Bitte halten, Sie sich an das richtige Format!");
 				return false;
 			}
@@ -219,10 +219,11 @@ public class Parkhaus {
 			// Fall, wenn die Parkdauer noch nicht 0 ist.
 			if (parkdauer > 0) {
 				//Solange Parkdauer noch nicht 0 ist, werden für jede angefangene Stunde 1,50€ addiert.
-				while (parkdauer > 0) {
+				boolean loop = false;
+				while (parkdauer > 0 || loop == true) {
 					
 					if(parkdauer <= 0) {
-						break;
+						loop = true;
 					}
 					parkgebuehr += 150;
 					parkdauer -= 60; 
