@@ -30,19 +30,18 @@ public class Parkhaus {
 				String zahlung = in.nextLine();
 				int convertedZahlung = zahlungGueltig(zahlung);
 				
+				if (convertedZahlung == -1) {in.close(); System.out.println("Programm beendet!"); return;}
+				
 				
 				if( convertedZahlung < parkgebuehr) {
-					if(convertedZahlung == -1) {
-						System.out.println("Falscher Geldbetrag!");
-					}
-					if(convertedZahlung < -1) {
+					
+			
 					System.out.println("Du Geizhals steckst jetzt fest!");
-					}
+					
 				
 					
 				} else {
 					int rueckgeld = convertedZahlung - parkgebuehr;
-					System.out.println(rueckgeld);
 					int[] coins = rueckgeld(rueckgeld);
 					System.out.println("\nRueckgeld");
 					for (int i = 0; i < coins.length; i++) {
@@ -59,6 +58,7 @@ public class Parkhaus {
 		} else {
 			System.out.println("Programm beendet!");
 		}
+		in.close();
 	}
 	
 		
@@ -90,19 +90,14 @@ public class Parkhaus {
 				return false;
 			}
 
-			int einfahrtInMinuten = konvertiereEingabe(einfahrt);
-			int ausfahrtInMinuten = konvertiereEingabe(ausfahrt);
-			//System.out.println(einfahrtInMinuten);
-			//System.out.println(ausfahrtInMinuten);
-
-
 			//Überprüfung, ob die Zeiten innerhalb der Betriebszeiten liegen.
-			if(ausfahrtInMinuten - einfahrtInMinuten > 960 || einfahrtInMinuten < 360 || ausfahrtInMinuten > 1320) {
+			if(konvertiereEingabe(ausfahrt) - konvertiereEingabe(einfahrt) > 960 || konvertiereEingabe(einfahrt) < 360 || konvertiereEingabe(ausfahrt) > 1320) {
 				System.out.println("Bitte halten sie sich an die Öffnungszeiten!");
 				return false;
 			}
 			
-			if(ausfahrtInMinuten < einfahrtInMinuten) {
+			// Überprüfung, ob Einfahrts- mit Ausfahrtszeit nicht vertauscht wurde 
+			if(konvertiereEingabe(ausfahrt) < konvertiereEingabe(einfahrt)) {
 				System.out.println("Die Einfahrtszeit muss vor der Ausfahrtszeit sein!");
 				return false;
 			}
@@ -252,14 +247,16 @@ public class Parkhaus {
 	* @return Den Wert der Zahlung in Cent, wenn diese gültig ist; andernfalls -1.
 	*/
 	public static int zahlungGueltig(String zahlung) {
-		//Umwandlung der Zahlung in Cents.
-		String parts[] = zahlung.split(",");
-		int[] convertedParts = new int[parts.length];
-		for (int i = 0; i < parts.length; i++) {
-			convertedParts[i] = Integer.parseInt(parts[i]);
-		}
 		
-		int convertedZahlung = convertedParts[0] * 100 + convertedParts[1];
+		//Überprüfung, ob das Format der Eingabe Stimmt
+		if(!zahlung.matches("\\d{2},\\d{2}")) { return -1; }
+		
+		//Umwandlung der Zahlung in Cents.
+		int convertedZahlung = Integer.parseInt(zahlung.replace(",", ""));
+		
+	
+		
+		//int convertedZahlung = convertedParts[0] * 100 + convertedParts[1];
 		//Überprüft, dass die Zahlung nicht über 99,90 und nur durch 10 teilbar ist.
 		if(convertedZahlung > 9900 || convertedZahlung % 10 != 0) {
 			System.out.println("Falscher Geldbetrag!");
