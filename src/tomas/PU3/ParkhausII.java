@@ -8,8 +8,8 @@ public class ParkhausII {
 	public static final int INITIAL_FEE = 300;
 	public static final int FOLLOWUP_FEE = 150;
 	
-	static String entry;
-	static String exit;
+	static String einfahrt;
+	static String ausfahrt;
 	static int parkdauer;
 	static String zahlung;
 	static int rueckgeld;
@@ -34,27 +34,36 @@ public class ParkhausII {
 			System.out.println("Parkzeitberechnung\n");
 			
 			System.out.print("Einfahrt (hh:mm): ");
-			entry = sc.nextLine();
+			einfahrt = sc.nextLine();
 			
 			System.out.print("Ausfahrt (hh:mm): ");
-			exit = sc.nextLine();
+			ausfahrt = sc.nextLine();
 		
 		// Check if input is correct 
-		isInputCorrect = isInputCorrect(entry, exit);
+		isInputCorrect = istEingabeGueltig (einfahrt, ausfahrt);
 		
 		
 		// If the input is correct then allow the rest of the program to run
 		if (isInputCorrect) {
 			
-			calculatePaidParkingPeriod = calculatePaidParkingPeriod (entry, exit);
+			calculatePaidParkingPeriod =  berechneZuZahlendeParkdauer (einfahrt, ausfahrt);
+			
+			if (calculatePaidParkingPeriod == 0) {
+				
+                // No payment required, terminate the program
+                System.out.println("\nKeine Parkgebuehr erforderlich.\n");
+              
+                // Terminates the program 
+                return; 
+            }
 
-			calculateParkingFee = calculateParkingFee (parkdauer);
+			calculateParkingFee = berechneParkGebuehr (parkdauer);
 			
 			System.out.print("\nZahlung (€€,cc): ");
 			zahlung = sc.nextLine();
 			
-			paymentValid = paymentValid (zahlung);
-			change = change (rueckgeld); 
+			paymentValid = zahlungGueltig (zahlung);
+			change = rueckgeld (rueckgeld); 
 			
 			terminate = true;
 		
@@ -70,9 +79,9 @@ public class ParkhausII {
 		sc.close();
 	}
 	
-	public static boolean isInputCorrect (String entry, String exit) {
+	public static boolean istEingabeGueltig (String einfahrt, String ausfahrt) {
 		
-		if (!entry.matches("\\d{2}:\\d{2}") || !exit.matches("\\d{2}:\\d{2}")) {
+		if (!ausfahrt.matches("\\d{2}:\\d{2}") || !einfahrt.matches("\\d{2}:\\d{2}")) {
 			
 			System.out.println("\nUngueltiges Eingabeformat. Bitte geben Sie die Eingabe im Format hh:mm ein");
 			return false;
@@ -80,8 +89,8 @@ public class ParkhausII {
 		}
 		
 		// Parse entry and exit times
-	    String[] entryParts = entry.split(":");
-	    String[] exitParts = exit.split(":");
+	    String[] entryParts = einfahrt.split(":");
+	    String[] exitParts = ausfahrt.split(":");
 		
 	    // Turn entry and exit times into integers
 	    int entryHour = Integer.parseInt(entryParts[0]);
@@ -113,11 +122,11 @@ public class ParkhausII {
 	    }
 	}
 	
-	public static int calculatePaidParkingPeriod (String entry, String exit) {
+	public static int  berechneZuZahlendeParkdauer (String einfahrt, String ausfahrt) {
 		
 		// Parse entry and exit times
-	    String[] entryParts = entry.split(":");
-	    String[] exitParts = exit.split(":");
+	    String[] entryParts = einfahrt.split(":");
+	    String[] exitParts = ausfahrt.split(":");
 		
 	    
 	    // Turn entry and exit times into integers
@@ -160,66 +169,61 @@ public class ParkhausII {
 	 	}
 	 	
 		// Return parking time in minutes (parkdauer)
+	 	
 		return parkdauer;
 		
 	}
 	
-	public static int calculateParkingFee (int parkdauer) {
-		
-		int calculatePaidParkingPeriod = calculatePaidParkingPeriod (entry, exit);
-		int fee = 0;
-		
-		if(calculatePaidParkingPeriod == 0) {
-			
-			fee = 0;
-			
-		} else {
-			
-            // Initial fee for the first 90 minutes
-			// Calculate fee for the remaining duration
-            fee = INITIAL_FEE;
-            
-            // Remaining time after the first free hour
-            int remainingMinutes = calculatePaidParkingPeriod - 60;
+	public static int berechneParkGebuehr(int parkdauer) {
+	    int calculatePaidParkingPeriod = berechneZuZahlendeParkdauer(einfahrt, ausfahrt);
+	    int fee = 0;
 
-            if (remainingMinutes > 0) {
-            	
-                // Calculate additional fee for the remaining time
-            	
-            	// Calculate additional hours
-                int additionalHours = (int) Math.ceil((double) remainingMinutes / 60);
-                
-                // Calculate additional fee
-                int additionalFee = additionalHours * FOLLOWUP_FEE;
-                
-                // Cap the additional fee at the maximum fee
-                additionalFee = Math.min(MAXIMUM_FEE - fee, additionalFee); 
-                
-                // Total fee is the sum of initial fee and additional fee
-                fee += additionalFee;
-          
-                int euros = fee / 100;
-                int cents = fee % 100;
-                
-                // Print the parking fee
-                System.out.println("\nParkgebuehr: " + euros + " Euro und " + cents + " Cent\n");
+	    if (calculatePaidParkingPeriod == 0) {
+	    	
+	        System.out.println("\nKeine Parkgebuehr erforderlich.\n");
+	        return fee;
+	        
+	    } else {
+	    	
+	        // Initial fee for the first 90 minutes
+	        fee = INITIAL_FEE;
 
-            } else {
-            	   
-            	
-            	
-            	 // If no additional time, only the initial fee applies
-                return fee;
-                
-            }
-		
-		}
-		
-		return fee;
-		
+	        // Remaining time after the first free hour
+	        int remainingMinutes = calculatePaidParkingPeriod - 60;
+
+	        if (remainingMinutes > 0) {
+	        	
+	            // Calculate additional fee for the remaining time
+	            // Calculate additional hours
+	            int additionalHours = (int) Math.ceil((double) remainingMinutes / 60);
+
+	            // Calculate additional fee
+	            int additionalFee = additionalHours * FOLLOWUP_FEE;
+
+	            // Cap the additional fee at the maximum fee
+	            additionalFee = Math.min(MAXIMUM_FEE - fee, additionalFee);
+
+	            // Total fee is the sum of initial fee and additional fee
+	            fee += additionalFee;
+
+	            int euros = fee / 100;
+	            int cents = fee % 100;
+
+	            // Print the parking fee
+	            System.out.println("\nParkgebuehr: " + euros + " Euro und " + cents + " Cent\n");
+
+	        } else {
+	        	
+	            // If no additional time, only the initial fee applies
+	            return fee;
+	            
+	        }
+	    }
+	    return fee;
 	}
+
 	
-	public static int paymentValid (String zahlung) {
+	public static int zahlungGueltig (String zahlung) {
 		
 		String[] splittedZahlung = zahlung.split(",");
 
@@ -257,10 +261,10 @@ public class ParkhausII {
 	    
 	}
 	
-	public static int change (int rueckgeld) {
+	public static int rueckgeld (int rueckgeld) {
 		
-		int paymentValid = paymentValid (zahlung);
-		int calculateParkingFee = calculateParkingFee (parkdauer);
+		int paymentValid = zahlungGueltig (zahlung);
+		int calculateParkingFee = berechneParkGebuehr (parkdauer);
 		
 		if (paymentValid >= calculateParkingFee) {
 		    // Calculates change in cents
