@@ -175,7 +175,12 @@ public class Parkhaus {
 		// Fall, wenn Parkzeit zwischen gebührenfreien und g ebührenpflichtigen Zeit ist.
 		} else if (einfahrtInMinuten <= 660 && ausfahrtInMinuten > 660) {
 			//Parkdauer wird erst ab 11:00 gezählt.
-			parkdauer = ausfahrtInMinuten  - einfahrtInMinuten - 60;
+			if(einfahrtInMinuten > 600) {
+				parkdauer = ausfahrtInMinuten  - einfahrtInMinuten - 60;
+			} else {
+				parkdauer = ausfahrtInMinuten  - 660;
+			}
+			
 		// Fall, alles ab 10:00 
 		} else if(einfahrtInMinuten >= 600) {
 			//Erste Stunde wird abgezogen
@@ -186,9 +191,8 @@ public class Parkhaus {
 				// zuZahlenden Parkdauer beträgt 90 Minuten als0 3,00€
 				parkdauer = 90;
 			}
-		} if(einfahrtInMinuten == 660 && ausfahrtInMinuten == 720) {
-			parkdauer = 0;
-		}
+		} 
+		
 		System.out.println(parkdauer);
 	
 		return parkdauer;
