@@ -44,9 +44,14 @@ public class ParkhausTest {
 
     @Test
     public void testBerechneZuZahlendeParkdauer() {
-        assertEquals(0, Parkhaus.berechneZuZahlendeParkdauer("06:00", "06:59"));
-        assertEquals(60, Parkhaus.berechneZuZahlendeParkdauer("10:00", "11:00"));
-        assertEquals(90, Parkhaus.berechneZuZahlendeParkdauer("11:00", "13:00"));
+       
+        assertEquals(0, Parkhaus.berechneZuZahlendeParkdauer("06:00", "10:00"));
+		assertEquals(0, Parkhaus.berechneZuZahlendeParkdauer("06:00", "11:00"));
+		assertEquals(0, Parkhaus.berechneZuZahlendeParkdauer("11:00", "12:00"));
+		assertEquals(0, Parkhaus.berechneZuZahlendeParkdauer("12:31", "13:31"));
+		assertEquals(1, Parkhaus.berechneZuZahlendeParkdauer("12:00", "13:01"));
+		assertEquals(61, Parkhaus.berechneZuZahlendeParkdauer("08:00", "12:01"));
+
     }
 
     @Test

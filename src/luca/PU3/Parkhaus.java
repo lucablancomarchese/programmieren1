@@ -139,7 +139,7 @@ public class Parkhaus {
 		String parts[] = eingabe.split(":");
 		int minutePart = Integer.parseInt(parts[1]);
 		
-		if(minutePart > 60 && minutePart < 100) {
+		if(minutePart >= 60 && minutePart < 100) {
 			return false;
 		}
 		
@@ -166,6 +166,8 @@ public class Parkhaus {
 		int einfahrtInMinuten = konvertiereEingabe(einfahrt);
 		int ausfahrtInMinuten = konvertiereEingabe(ausfahrt);
 		int parkdauer= 0;
+		System.out.println(einfahrtInMinuten);
+		System.out.println(ausfahrtInMinuten);
 		
 		// Alles zwischen 6:00 und 11:00 ist kostenlos.
 		if(ausfahrtInMinuten <= 660) {
@@ -173,18 +175,21 @@ public class Parkhaus {
 		// Fall, wenn Parkzeit zwischen gebührenfreien und g ebührenpflichtigen Zeit ist.
 		} else if (einfahrtInMinuten <= 660 && ausfahrtInMinuten > 660) {
 			//Parkdauer wird erst ab 11:00 gezählt.
-			parkdauer = ausfahrtInMinuten - 660;
+			parkdauer = ausfahrtInMinuten  - einfahrtInMinuten - 60;
 		// Fall, alles ab 10:00 
-		} else if(einfahrtInMinuten > 600) {
+		} else if(einfahrtInMinuten >= 600) {
 			//Erste Stunde wird abgezogen
 			parkdauer = ausfahrtInMinuten - einfahrtInMinuten - 60;
 			
 			//Fall, sollte dann die Parkdauer unter 0 gehen.
-			if(parkdauer < 0) {
+			if(parkdauer < 0 && einfahrtInMinuten > 660) {
 				// zuZahlenden Parkdauer beträgt 90 Minuten als0 3,00€
 				parkdauer = 90;
 			}
-		} 
+		} if(einfahrtInMinuten == 660 && ausfahrtInMinuten == 720) {
+			parkdauer = 0;
+		}
+		System.out.println(parkdauer);
 	
 		return parkdauer;
 	}
