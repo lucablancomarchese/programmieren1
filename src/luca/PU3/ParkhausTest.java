@@ -1,12 +1,9 @@
 package luca.PU3;
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.*;
 
-import org.junit.Test;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
-import org.junit.*;
+
 
 public class ParkhausTest {
 

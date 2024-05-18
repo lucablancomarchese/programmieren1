@@ -1,8 +1,9 @@
 package tomas.PU3;
 
+import org.junit.jupiter.api.*;
 import static org.junit.Assert.*;
 
-import org.junit.Test;
+
 
 import luca.PU3.Parkhaus;
 
