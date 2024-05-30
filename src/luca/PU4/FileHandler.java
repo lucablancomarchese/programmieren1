@@ -9,11 +9,11 @@ import java.io.PrintWriter;
 
 // Klasse FileHandler zur Verwaltung der Dateioperationen
 public class FileHandler {
-    static String defaultFilePath = ""; // Variable für den Standardpfad der Dateien
+    static String defaultFilePath = "data/"; // Variable für den Standardpfad der Dateien
 
     // Methode zum Schreiben eines Textes in eine Datei
     public static void writeToFile(String filename, String text) throws IOException {
-    	FileWriter ausgabestrom = new FileWriter(filename);
+    	FileWriter ausgabestrom = new FileWriter(defaultFilePath + filename);
 		PrintWriter ausgabe = new PrintWriter(ausgabestrom);
 		ausgabe.println(text);
 		ausgabe.close();
@@ -22,14 +22,15 @@ public class FileHandler {
 
     // Methode zum Lesen eines Textes aus einer Datei
     public static String readFromFile(String filename) throws IOException {
-    	String text = "";
     	File file = new File(filename);
 		FileReader fr = new FileReader(file);
 		BufferedReader reader = new BufferedReader(fr);
 		
+		String text = "";
 		String line = reader.readLine();
+		
 		while(line != null) {
-			text = text + line;
+			text = text + line + "\n";
 			line = reader.readLine();
 		}
 		reader.close();
