@@ -3,6 +3,8 @@ package luca.PU4;
 import java.io.*;
 import java.util.Scanner;
 
+import static luca.PU4.Crypto.*;
+import static luca.PU4.FileHandler.*;
 
 
 

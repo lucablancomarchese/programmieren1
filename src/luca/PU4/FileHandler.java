@@ -22,7 +22,7 @@ public class FileHandler {
 
     // Methode zum Lesen eines Textes aus einer Datei
     public static String readFromFile(String filename) throws IOException {
-    	File file = new File(filename);
+    	File file = new File(defaultFilePath + filename);
 		FileReader fr = new FileReader(file);
 		BufferedReader reader = new BufferedReader(fr);
 		
