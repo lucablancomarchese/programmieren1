@@ -11,7 +11,13 @@ import java.io.PrintWriter;
 public class FileHandler {
     static String defaultFilePath = "data/"; // Variable für den Standardpfad der Dateien
 
-    // Methode zum Schreiben eines Textes in eine Datei
+   /**
+    * Methode, die einer ausgewählten Datei, Text überschreibt.
+    * 
+    * @param filename -> Datei in die geschrieben werden soll.
+    * @param text -> Text der, der Datei überschrieben werden soll.
+    * @throws IOException
+    */
     public static void writeToFile(String filename, String text) throws IOException {
     	FileWriter ausgabestrom = new FileWriter(defaultFilePath + filename);
 		PrintWriter ausgabe = new PrintWriter(ausgabestrom);
@@ -20,7 +26,13 @@ public class FileHandler {
 		
     }
 
-    // Methode zum Lesen eines Textes aus einer Datei
+    /**
+    * Methode zum Lesen eines Textes aus einer Datei
+    * 
+    * @param filename -> zu lesende Datei
+    * @return text -> Dateinhalt
+    * @throws IOException
+    */
     public static String readFromFile(String filename) throws IOException {
     	File file = new File(defaultFilePath + filename);
 		FileReader fr = new FileReader(file);
