@@ -52,11 +52,30 @@ public class Main {
                     System.out.println();
                     break;
                 case 2: // Option 2: Lesen einer Notiz
+                	
                 	// Eingabeaufforderung für das die zulesenen Datei
+                	
+                	boolean passwordCheck = false;
+                	do {
+                		System.out.println("Enter password for decryption: ");
+                		String inputPassword = scanner.nextLine();
+                		passwordCheck = Crypto.checkPassword(inputPassword);
+                		if(passwordCheck == false) {
+                			System.out.println("Incorrect password, try again");
+                		}
+                		
+                	} while(passwordCheck == false);
+                	
                 	System.out.print("Enter filename: ");
                 	file = scanner.nextLine();
-                	text = FileHandler.readFromFile(file); // Sucht die eingebene Datei und übergibt den drin stehenden Text
-                	System.out.println(text);
+                	text = FileHandler.readFromFile(file);
+                	shift = Integer.parseInt("" + text.charAt(0) + text.charAt(1));
+                	text = caesarDecrypt(text, shift);
+                	String newText = text.substring(2);
+                	
+                	// Sucht die eingebene Datei und übergibt den drin stehenden Text
+           
+                	System.out.println(newText);
                 	System.out.println();
                 	break;
 
