@@ -2,10 +2,13 @@ package luca.PU4;
 
 // Klasse Crypto zur Realisierung der Caesar-Verschlüsselung und -Entschlüsselung
 public class Crypto {
+	
+	private final static String PASSWORD = "thesupersecretcompanypassword";
 
     // Methode zur Verschlüsselung eines Textes mit dem Caesar-Verfahren
     public static String caesarEncrypt(String textToEncrypt, int shift) {
         shift = normalizeShiftValue(shift);
+        
         char[] chars = new char[textToEncrypt.length()]; // Char-Array zur Aufnahme des verschlüsselten Textes
         for (int charIndex = 0; charIndex < textToEncrypt.length(); charIndex++) {
             char character = textToEncrypt.charAt(charIndex); // Extraktion des einzelnen Zeichens aus dem Text
@@ -38,5 +41,35 @@ public class Crypto {
             return normalizeShiftValue(shift) + encryptedText;
         }
     }
+    
+    /**
+     * Methode zur überprüfung des Passwortes
+     * @param String inputPasswort
+     * return boolean
+     */
+    public static boolean checkPassword(String inputPassword) {
+    	if(inputPassword.equals(PASSWORD)) {
+    		return true;
+    	}
+    	
+    	return false;
+    }
+    
+    /**
+     * Methode um Text zu encoden
+     * @param String textinhalt der Datei
+     * @param int shift Wert
+     * return text
+     */
+    
+    public static String caesarDecrypt(String text, int shift) {
+    	return caesarEncrypt(text, -shift);
+    	
+
+    }
+    
+    
+    
+    
 
 }
